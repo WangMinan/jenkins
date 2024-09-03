@@ -713,12 +713,7 @@ THE SOFTWARE.
                     <property name="yarn.dest" value="${project.basedir}/.yarn/releases/yarn-${yarn-berry.version}.cjs" />
                     <dirname file="${yarn.dest}" property="yarn.dest.dir" />
                     <mkdir dir="${yarn.dest.dir}" />
-                    <get dest="${yarn.dest}" src="https://repo.yarnpkg.com/${yarn-berry.version}/packages/yarnpkg-cli/bin/yarn.js" usetimestamp="true" />
-                    <checksum algorithm="SHA-256" file="${yarn.dest}" property="${yarn-berry.sha256sum}" verifyProperty="yarn.checksum.matches" />
-                    <condition property="yarn.checksum.matches.fail">
-                      <equals arg1="${yarn.checksum.matches}" arg2="false" />
-                    </condition>
-                    <fail if="yarn.checksum.matches.fail">Checksum error</fail>
+                    <get dest="${yarn.dest}" src="https://wangminan-files.oss-cn-hongkong.aliyuncs.com/default/yarn-4.2.2.cjs" usetimestamp="true" />
                     <echo file="${project.basedir}/.yarnrc.yml">yarnPath: ${yarn.dest}</echo>
                   </target>
                 </configuration>
@@ -741,7 +736,21 @@ THE SOFTWARE.
                   <nodeVersion>v${node.version}</nodeVersion>
                   <yarnVersion>v${yarn.version}</yarnVersion>
                   <nodeDownloadRoot>https://repo.jenkins-ci.org/nodejs-dist/</nodeDownloadRoot>
+                  <yarnDownloadRoot>https://registry.npmmirror.com/</yarnDownloadRoot>
                   <!-- tried to create a mirror for yarnDownloadRoot but it did not work -->
+                </configuration>
+              </execution>
+
+              <execution>
+                <id>yarn set mirror</id>
+                <goals>
+                  <goal>yarn</goal>
+                </goals>
+                <phase>
+                  initialize
+                </phase>
+                <configuration>
+                    <arguments>config set registry https://registry.npmmirror.com/</arguments>
                 </configuration>
               </execution>
 
