@@ -742,19 +742,6 @@ THE SOFTWARE.
               </execution>
 
               <execution>
-                <id>yarn set mirror</id>
-                <goals>
-                  <goal>yarn</goal>
-                </goals>
-                <phase>
-                  initialize
-                </phase>
-                <configuration>
-                    <arguments>config set registry https://registry.npmmirror.com/</arguments>
-                </configuration>
-              </execution>
-
-              <execution>
                 <id>yarn install</id>
                 <goals>
                   <goal>yarn</goal>
